@@ -24,7 +24,7 @@ public class Server {
 			//establish connection with the database, we pass username and password
 			//here demo is database name, root is username and "" password  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://localhost:3306/demo","root","26-11Zkevin"); 
+			"jdbc:mysql://localhost:3306/demo","root","______"); 
 			
 			//the object of statement is responsible to execute queries
 			db = con.createStatement();  
