@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.ClassNotFoundException; 
-import java.net.ServerSocket; 
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -19,8 +18,7 @@ public class ServerConnection {
 	ObjectInputStream oin;
 	ObjectOutputStream oout;
 	
-	ServerConnection(){}
-	
+	//constructor to set up variables
 	ServerConnection(Socket s){
 		this.s = s;
 		try {
@@ -34,6 +32,7 @@ public class ServerConnection {
 		this.br=new BufferedReader(new InputStreamReader(System.in)); 
 	}
 	
+	//to send a message as string
 	public void sendMessage(String string) throws Exception {
 		try {
 			dout.writeUTF(string);
@@ -45,6 +44,7 @@ public class ServerConnection {
 		}  
 	}
 	
+	//wait until you receive a message. Return the message or throw exception
 	public String receiveMessage() throws Exception {
 		try {
 			return din.readUTF();   
@@ -59,15 +59,17 @@ public class ServerConnection {
 		}  
 	}
 	
-	public String readInput() {
+	//Read input from terminal. Return read input or throw exception
+	public String readInput() throws Exception {
 		try {
 			return br.readLine();
 		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
+			throw new Exception("Error in reading input");
+//			e.printStackTrace();
 		}
 	}
 	
+	//to receive a user. Return user
 	public Object receiveUser() throws Exception {
 		try {
 			return oin.readObject(); 
@@ -82,7 +84,7 @@ public class ServerConnection {
 		}  
 	}
 	
-	
+	//to send a user
 	public void sendUser(User user) throws Exception {
 		try {
 			oout.writeObject(user);
@@ -93,7 +95,5 @@ public class ServerConnection {
 			e.printStackTrace();
 		}  
 	}
-	
-
 	
 }

@@ -1,13 +1,8 @@
 Find a way to make ot work on other people network
 
-Refacture code
-Generalize try catch??
-
-Fix ResultSet error when two users loggin in at the same time
-
 Multiplayer game 1v1
 
 Hash password
-Implement reward for winsCombo
+
 
 

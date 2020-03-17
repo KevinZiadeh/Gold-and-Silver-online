@@ -1,8 +1,12 @@
-import java.util.*;
 import java.time.*;
 import java.sql.*;
 
 public class User implements java.io.Serializable{
+	/**
+	 * serialVersionUID is auto generated code to remove warning. 
+	 * Possible to remove the variable as it won't cause an error.
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private String nickname;
@@ -14,7 +18,7 @@ public class User implements java.io.Serializable{
 	private long datetimeLastLogin;
 	          
             	
-	//User constructor. Set initial values to 0. Set time in a way to be able to compare(int). 
+	//User constructor. Set initial values to 0. Set time in a way to be able to compare. 
 	///You can google Epoch time
 	User(String username, String password, String nickname){
 		this.username = username;
@@ -34,45 +38,73 @@ public class User implements java.io.Serializable{
 	
 	//User constructor if user already exists in database. r contains all the info we need.
 	//Compare current time with last time to reward 50 gold accordingly. Store the time once a day
-	User(ResultSet r){
-		try {
-			this.username = r.getString("username");
-			this.setPassword(r.getString("password"));
-			this.nickname = r.getString("nickname");
-			this.silverCoins = r.getInt("silverCoins");
-			this.numLosses = r.getInt("numLosses");
-			this.numWins = r.getInt("numWins");
-			this.numWinsCombo = r.getInt("numWinsCombo");
-			LocalDateTime date = LocalDateTime.now();
-			ZoneOffset  zone = ZoneOffset.UTC;
-			long previousTime = r.getLong("datetimeLastLogin");
-			this.datetimeLastLogin = date.toEpochSecond(zone);
-			if (this.datetimeLastLogin-previousTime >= 86400) {
-				this.goldCoins = r.getInt("goldCoins")+50;
-			}else {
-				this.datetimeLastLogin = previousTime;
-				this.goldCoins = r.getInt("goldCoins");
-			}
-			String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
-			Server.executeUpdate(query);
-			r.close();
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+//	User(ResultSet r){
+//		try {
+//			this.username = r.getString("username");
+//			this.password = r.getString("password");
+//			this.nickname = r.getString("nickname");
+//			this.silverCoins = r.getInt("silverCoins");
+//			this.numLosses = r.getInt("numLosses");
+//			this.numWins = r.getInt("numWins");
+//			this.numWinsCombo = r.getInt("numWinsCombo");
+//			LocalDateTime date = LocalDateTime.now();
+//			ZoneOffset  zone = ZoneOffset.UTC;
+//			long previousTime = r.getLong("datetimeLastLogin");
+//			this.datetimeLastLogin = date.toEpochSecond(zone);
+//			if (this.datetimeLastLogin-previousTime >= 86400) {
+//				this.goldCoins = r.getInt("goldCoins")+50;
+//			}else {
+//				this.datetimeLastLogin = previousTime;
+//				this.goldCoins = r.getInt("goldCoins");
+//			}
+//			String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
+//			Server.executeUpdate(query);
+//			r.close();
+//		}
+//		catch (Exception e) {
+//			System.out.println(e);
+//		}
+//	}
 	
-	//transform it to string
+	//User constructor if user already exists in database. we passs all the info we need to fix ResultSet error
+	//Compare current time with last time to reward 50 gold accordingly. Store the time once a day
+	public User(String username, String password, String nickname, int goldCoins, int silverCoins, int numLosses,
+			int numWins, int numWinsCombo, long datetimeLastLogin) {
+		try {
+		this.username = username;
+		this.password = password;
+		this.nickname = nickname;
+		this.silverCoins = silverCoins;
+		this.numLosses = numLosses;
+		this.numWins = numWins;
+		this.numWinsCombo = numWinsCombo;
+		LocalDateTime date = LocalDateTime.now();
+		ZoneOffset  zone = ZoneOffset.UTC;
+		long previousTime = datetimeLastLogin;
+		this.datetimeLastLogin = date.toEpochSecond(zone);
+		if (this.datetimeLastLogin-previousTime >= 86400) {
+			this.goldCoins = goldCoins+50;
+		}else {
+			this.datetimeLastLogin = previousTime;
+			this.goldCoins = goldCoins;
+		}
+		String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
+		Server.executeUpdate(query);
+	}
+	catch (Exception e) {
+		System.out.println(e);
+	}
+	}
+
+	//return user as a string
 	public String getString() {
 		return ("Welcome " + nickname + ". You have " + goldCoins + " gold coins and " + silverCoins + " silver coins."); 
 	}
 	
-	//Trade 10 silver coins for 1 gold. Some checking for errors
+	//Trade 10 silver coins for 1 gold. Throws error if not enough silver, return true otherwise
 	public boolean Trade(int n) throws Exception {
 		if (this.silverCoins < n*10) {
-//			System.out.println("You don't have enough silver coins");
 			throw new Exception("You don't have enough silver coins \nPlease enter 0 or 1");
-//			return false;
 		}else {
 			String query;
 			this.goldCoins = this.goldCoins + n;
@@ -81,6 +113,16 @@ public class User implements java.io.Serializable{
 			Server.executeUpdate(query);
 			return true;
 		}
+	}
+	
+	//Getter
+	public String getPassword() {
+		return password;
+	}
+	
+	//Setter
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	//Getter
@@ -107,11 +149,21 @@ public class User implements java.io.Serializable{
 		Server.executeUpdate(query);
 	}
 	
+	//Getter
+	public int getLoss() {
+		return this.numLosses;
+	}
+	
 	//Setter
 	public void setLoss() {
 		this.numLosses++;
 		String query = "UPDATE `demo`.`users` SET `numLosses` = '"+this.numLosses+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
+	}
+	
+	//Getter
+	public int getWins() {
+		return this.numWins;
 	}
 	
 	//Setter
@@ -121,7 +173,12 @@ public class User implements java.io.Serializable{
 		Server.executeUpdate(query);
 	}
 	
-	//Setter
+	//Getter
+	public int getWinCombo() {
+		return this.numWinsCombo;
+	}
+	
+	//Setter to x if x > 0, or to 0 if x < 0
 	public void setWinCombo(int x) {
 		if (x > 0) {
 			this.numWinsCombo++;			
@@ -137,14 +194,6 @@ public class User implements java.io.Serializable{
 		this.goldCoins = this.goldCoins + 500;
 		String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 }  
