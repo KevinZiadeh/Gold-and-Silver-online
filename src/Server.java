@@ -14,6 +14,9 @@ import java.sql.Statement;
 public class Server {
 	private static Statement db;
 	protected ServerConnection con;
+	public static User[] usrmult_2;
+	public static int[] guessmult_2;
+	public static int number2;
 
 	//use it to connect to database
 	private static void connect() {
@@ -24,7 +27,7 @@ public class Server {
 			//establish connection with the database, we pass username and password
 			//here demo is database name, root is username and "" password  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://localhost:3306/demo","root","______"); 
+			"jdbc:mysql://localhost:3306/demo","root","26-11Zkevin"); 
 			
 			//the object of statement is responsible to execute queries
 			db = con.createStatement();  
@@ -170,29 +173,136 @@ public class Server {
 	    }   
 	}
 
+
+	//set up MySQL connection and creates server
+	public static void main(String[] args) throws Exception {
+		try {
+			connect();
+			System.out.println("Connection to MySQL was successful");
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		try (var listener = new ServerSocket(12345)) {
+			System.out.println("The capitalization server is running...");
+			System.out.println(InetAddress.getLocalHost());
+			var pool = Executors.newFixedThreadPool(16);
+			usrmult_2 =  new User[2];
+			guessmult_2 =  new int[2];
+			while (true) {
+				pool.execute(new Capitalizer(pool, listener.accept()));
+			}
+		}
+	}
+}
+
+class Capitalizer extends Server implements Runnable {
+	private Socket socket;
+	public ExecutorService pool;
+	public Game g;
+
+	//Constructor to set up variable
+	Capitalizer(ExecutorService pool, Socket socket) {
+		this.pool = pool;
+		this.socket = socket;
+		this.con = new ServerConnection(socket);
+	}
+	
+	//close the socket
+	private void close() {
+		try { 
+			socket.close(); 
+		} 
+		catch (IOException e) {
+			System.out.println(e);
+		}
+		System.out.println("Closed: " + socket);
+	}
+	
 	//select game mode to play. runs the game
 	public void modeSelection(Game g) throws Exception {
 		int selectMode;
-		boolean guessed;
+		boolean guessed = false;
+		boolean single = false;
+//		boolean duo = false;
 		//check minimum requirements to play
 		if (g.user.getGold() < 5 && (g.user.getSilver()/10)+g.user.getGold() >= 5) {
 			if(!tradeChoice(g)) {
 				  return;
 			  }
 		}
-		con.sendMessage("Select game mode: 0 for singleplayer, 1 for multiplayer");
+		con.sendMessage("Select game mode: 0 for singleplayer, 1 for multiplayer(500 gold coins to enter)");
 		while (true) {
 			try {
 				selectMode = Integer.parseInt(con.receiveMessage());
 				if ((selectMode != 0) && (selectMode != 1)){
 					  throw new Exception("Invalid entry, please enter 0 or 1 \nSelect game mode: 0 for singleplayer, 1 for multiplayer");
 				  }else if(selectMode == 0) {
-			    		guessed = startGame(g);
-			    		break;
+					  single = true;
+					  guessed = startGame_solo(g);
+					  break;
 				  }else {
-					  //still need o implement multiplayer
-					  System.out.println("online");
-					  return;
+					  if (g.user.getGold()<500) {
+						  throw new Exception("You don't have enough to play online \nSelect game mode: 0 for singleplayer, 1 for multiplayer");
+					  }
+					  if (usrmult_2[0] == null) {
+						usrmult_2[0] = g.user;			
+						con.sendMessage("Waiting for another player");
+						while (usrmult_2[1] == null) {
+							Thread.sleep(1000);
+						}
+//						usrmult_2[0] = null;
+//						usrmult_2[1] = null;
+						con.sendMessage("Winner is the one who gets the answer in the fewest guesses possible");
+						guessmult_2[0] = startGame_duo(g, number2);
+						con.sendMessage("Waiting for other user");
+						while (guessmult_2[1] == 0) {
+							Thread.sleep(1000);
+						}
+						if (guessmult_2[0] == guessmult_2[1]) {
+							con.sendMessage("It was a tie. You won 500 gold! \n");
+							g.user.setGold(g.user.getGold()+500);
+						}
+						else if ((guessmult_2[0] > 0) && (guessmult_2[0] < guessmult_2[1] || guessmult_2[1] < 0)) {
+							con.sendMessage("Congrats! You won 1000 gold! \n");
+							g.user.setGold(g.user.getGold()+1000);
+							g.user.setWin();
+							g.user.setWinCombo(1);
+							winCombo(g);
+						}else {
+							con.sendMessage("Sorry, you lost \n");
+							g.user.setLoss();
+							g.user.setWinCombo(0);
+						}
+						break;
+					  }else if (usrmult_2[1] == null) {
+						  usrmult_2[1] = g.user;
+						  number2 = g.generateNumber();
+						  con.sendMessage("Another player has been waiting for you");
+						  con.sendMessage("Winner is the one who gets the answer in the fewest guesses possible");
+						  System.out.print("Guess: " + number2);
+						  guessmult_2[1] = startGame_duo(g, number2);
+						  con.sendMessage("Waiting for other user");
+						  while (guessmult_2[0] == 0) {
+							  Thread.sleep(1000);
+						  }
+						  if (guessmult_2[0] == guessmult_2[1]) {
+								con.sendMessage("It was a tie. You won 500 gold! \n");
+								g.user.setGold(g.user.getGold()+500);
+							}
+							else if ((guessmult_2[1] > 0) && (guessmult_2[1] < guessmult_2[0] || guessmult_2[0] < 0)) {
+								con.sendMessage("Congrats! You won 1000 gold! \n");
+								g.user.setGold(g.user.getGold()+1000);
+								g.user.setWin();
+								g.user.setWinCombo(1);
+								winCombo(g);
+							}else {
+								con.sendMessage("Sorry, you lost \n");
+								g.user.setLoss();
+								g.user.setWinCombo(0);
+							}
+						  break;
+					  }
 				  }
 			  }
 			  catch (Exception e) {
@@ -203,13 +313,15 @@ public class Server {
 				  }
 			  }
 		}
-		if (guessed) {
-			g.user.setWin();
-			g.user.setWinCombo(1);
-			winCombo(g);
-		}else {
-			g.user.setLoss();
-			g.user.setWinCombo(0);
+		if (single) {
+			if (guessed) {
+				g.user.setWin();
+				g.user.setWinCombo(1);
+				winCombo(g);
+			}else {
+				g.user.setLoss();
+				g.user.setWinCombo(0);
+			}
 		}
 		con.sendMessage("Do you want to play again? 0 for yes, 1 for no");
 		while (true) {
@@ -234,8 +346,8 @@ public class Server {
 		}
 	}
 	
-	//Game main code
-	public boolean startGame(Game g) throws Exception {
+	//Game Solo main code
+	public boolean startGame_solo(Game g) throws Exception {
 		  g.generateNumber();
 		  g.nbGuesses = 0;
 		  int entered;
@@ -263,6 +375,7 @@ public class Server {
 			  guessed = g.checkGuess(entered);
 			  if (guessed.contains("Congrats!")) {
 				  con.sendMessage(guessed);
+				  g.user.setGold(g.user.getGold()+50);
 				  return true;
 			  }
 			  if (g.user.getGold() < 5 && (g.user.getSilver()/10)+g.user.getGold() >= 5) {
@@ -272,9 +385,52 @@ public class Server {
 			  }
 			  con.sendMessage(guessed);
 		  }
+		  con.sendMessage("Sorry, you don't have any gold left. Come back in 24 hours");
 		  return false;
 	  }
-	  
+	 
+	//Game duo main code
+	public int startGame_duo(Game g, int number) throws Exception {
+		g.user.setGold(g.user.getGold()-500);
+		g.number = number;
+		g.nbGuesses = 0;
+		int entered;
+		String guessed = "";
+		con.sendMessage("Enter guess: ");
+		while (g.user.getGold() >= 5){
+			while (true) {
+				try {
+					entered = Integer.parseInt(con.receiveMessage());	
+					if (g.hasDuplicates(entered) || entered < 1000 || entered > 9999) {
+						throw new Exception("");
+					}
+					break;
+				}
+				catch (Exception e) {
+					if (e.getCause() == null){
+						con.sendMessage("Wrong input, number must be between  1000 and 9999 and not contain any duplicates \nEnter guess:");
+				    }else {
+				    	throw new Exception("User disconnected");	
+				    }
+				}
+			}
+			g.user.setGold(g.user.getGold()-5);
+			g.nbGuesses++;
+			guessed = g.checkGuess(entered);
+			if (guessed.contains("Congrats!")) {
+				return g.nbGuesses;
+			}
+			if (g.user.getGold() < 5 && (g.user.getSilver()/10)+g.user.getGold() >= 5) {
+				if(!tradeChoice(g)) {
+					return -1;
+				}
+			}
+			con.sendMessage(guessed);
+		}
+		con.sendMessage("Sorry, you don't have any gold left. Come back in 24 hours");
+		return -1;
+	}
+	 
 	//Handles reward for winning games in a row
 	public boolean winCombo(Game g) {
 		int combo = g.user.getWinCombo();
@@ -321,48 +477,6 @@ public class Server {
 		  return true;
 	  }
 	
-	//set up MySQL connection and creates server
-	public static void main(String[] args) throws Exception {
-		try {
-			connect();
-			System.out.println("Connection to MySQL was successful");
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
-		try (var listener = new ServerSocket(12345)) {
-			System.out.println("The capitalization server is running...");
-			System.out.println(InetAddress.getLocalHost());
-			var pool = Executors.newFixedThreadPool(4);
-			while (true) {
-				pool.execute(new Capitalizer(pool, listener.accept()));
-			}
-		}
-	}
-}
-
-class Capitalizer extends Server implements Runnable {
-	private Socket socket;
-	public ExecutorService pool;
-	public Game g;
-
-	//Constructor to set up variable
-	Capitalizer(ExecutorService pool, Socket socket) {
-		this.pool = pool;
-		this.socket = socket;
-		this.con = new ServerConnection(socket);
-	}
-	
-	//close the socket
-	private void close() {
-		try { 
-			socket.close(); 
-		} 
-		catch (IOException e) {
-			System.out.println(e);
-		}
-		System.out.println("Closed: " + socket);
-	}
 	
 	@Override
 	public void run() {

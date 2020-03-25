@@ -1,8 +1,12 @@
-Find a way to make ot work on other people network
+Ctrl+C in multiplayer
+divide two player game to use in tournament
 
-Multiplayer game 1v1
+multiple two player
 
+Multiplayer tournament
+
+Make game end prematurely
 Hash password
-
+Add info menu and user menu
 
 

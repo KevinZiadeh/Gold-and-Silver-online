@@ -9,6 +9,11 @@ public class Game extends Thread{
 	public boolean guessed;
 	public User user;
 	
+	//Initial Constructor
+	Game(){
+		
+	}
+	
 	//Set initial values
 	Game(User user){
 		this.guessed = false;
@@ -16,11 +21,12 @@ public class Game extends Thread{
 	}
 
 	// generate the number to guess
-	public void generateNumber() {
+	public int generateNumber() {
 		do {
 			number = RANDOM.nextInt(9000) + 1000;
 		} while (hasDuplicates(number));
 	    	System.out.println("Number is " + number + "\n");
+	    	return number;
 	}
 	  
 	//check if numbers are unique
@@ -52,8 +58,8 @@ public class Game extends Thread{
 			}
 		}
 		if (gold == 4) {
-			user.setGold(user.getGold()+50);
-			return ("Congrats! You won with "+nbGuesses+" guesses");
+//			user.setGold(user.getGold()+50);
+			return ("Congrats! You won with "+nbGuesses+" guesses \n");
 		}else {
 			user.setGold(user.getGold()+gold);
 			user.setSilver(user.getSilver()+silver);  

@@ -23,7 +23,7 @@ public class Client{
 				}
 				con.sendMessage(con.readInput());
 			} while (!temps.equals("Successful"));
-			System.out.println(con.receiveMessage());
+//			System.out.println(con.receiveMessage());
 			user = (User) con.receiveUser();
 			System.out.println(user.getString());
 			} 
@@ -33,37 +33,84 @@ public class Client{
 		}
 	}
 	
-	//listens and sends input to server for modeSelection and startGame code
-	private static void startGame(int comboCounter){
+	//sends responses and awaits requests from server regardeless what gamemode
+	public static boolean play() throws Exception {
 		String temps;
 		try {
 			do {
 				temps = con.receiveMessage();
-				System.out.println(temps);
-				if (temps.contains("Congrats!") || temps.contains("Sorry")) {
+				if (temps.contains("Congrats!") || temps.contains("Sorry") || temps.contains("tie") || temps.contains("Waiting")) {
 					break;
 				}
-				con.sendMessage(con.readInput());
-			} while (!temps.contains("Congrats!") && !temps.contains("Sorry"));
+				System.out.println(temps);
+				String msg = con.readInput();
+				con.sendMessage(msg);
+			} while (!temps.contains("Congrats!") && !temps.contains("Sorry") && !temps.contains("tie") && !temps.contains("Waiting"));
+			if (temps.contains("Waiting")) {
+				temps = con.receiveMessage();
+			}
+			System.out.print(temps);
 			if (temps.contains("Congrats!")) {
-				comboCounter++;
+				return true;
 			}
-			if (comboCounter % 5 == 0) {
-				System.out.println("You have been rewarded additional gold coins for winning a number of matches in a row!");
-			}
-			System.out.println(con.receiveMessage());
-			temps = con.readInput();
-			con.sendMessage(temps);
-			if (temps.equals("0")) {
-				startGame(comboCounter);
-			}else {
-				return;
-			}
-		} 
-		catch (Exception e) {
-//			System.out.println(e);
+			return false;
 		}
+		catch (Exception e) {
+//				System.out.println(e);
+				throw new Exception(e);
+			}
 	}
+	
+	//listens and sends input to server for modeSelection and startGame code
+	private static void startGame(int comboCounter) throws Exception{
+		System.out.println(con.receiveMessage());
+		String temps;
+		String receiver;
+		while (true) {
+			try {	
+				temps = con.readInput();
+				if ((!temps.equals("0")) && (!temps.equals("1")) && (!temps.equals("2"))){
+					throw new Exception("Invalid entry, please enter 0 or 1 \nSelect game mode: 0 for singleplayer, 1 for multiplayer");
+				}else if(temps.equals("0")) {
+					con.sendMessage(temps);
+					if (play()) {
+						comboCounter++;
+						if (comboCounter % 5 == 0) {
+							System.out.println("You have been rewarded additional gold coins for winning a number of matches in a row!");
+						}
+					}
+				}else if(temps.equals("1")){
+					con.sendMessage(temps);
+					receiver = con.receiveMessage();
+					if (receiver.contains("online")) {
+						throw new Exception(receiver);
+					}
+					System.out.println(receiver);
+					System.out.println(con.receiveMessage());
+					if (play()) {
+						comboCounter++;
+						if (comboCounter % 5 == 0) {
+							System.out.println("You have been rewarded additional gold coins for winning a number of matches in a row!");
+						}
+					}
+				}
+					break;
+			}	
+			catch (Exception e) {
+//				e.printStackTrace();
+				System.out.println(e.getMessage());
+			}
+		}
+		System.out.println(con.receiveMessage());
+		temps = con.readInput();
+		con.sendMessage(temps);
+		if (temps.equals("0")) {
+			startGame(comboCounter);
+		}else {
+			return;
+		}
+	} 
+
 	
 	public static void main(String[] args) throws Exception {
 		//check for conditions to connect 
