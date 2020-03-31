@@ -7,6 +7,7 @@ public class Game extends Thread{
 	public int number;
 	public int nbGuesses;
 	public boolean guessed;
+	public boolean kill;
 	public User user;
 	
 	//Initial Constructor
@@ -18,6 +19,7 @@ public class Game extends Thread{
 	Game(User user){
 		this.guessed = false;
 		this.user = user;
+		this.kill = false;
 	}
 
 	// generate the number to guess
@@ -69,7 +71,14 @@ public class Game extends Thread{
 	  
 	//used for testing
 	public void run(){
-		System.out.println("game   " + user.getString());
+		while (!kill) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
 	

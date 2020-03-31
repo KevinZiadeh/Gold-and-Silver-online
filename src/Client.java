@@ -29,7 +29,7 @@ public class Client{
 			} 
 		catch (Exception e) {
 			System.out.println("Goodbye");
-//			System.out.println(e);
+//			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -47,6 +47,7 @@ public class Client{
 				con.sendMessage(msg);
 			} while (!temps.contains("Congrats!") && !temps.contains("Sorry") && !temps.contains("tie") && !temps.contains("Waiting"));
 			if (temps.contains("Waiting")) {
+				System.out.print(temps);
 				temps = con.receiveMessage();
 			}
 			System.out.print(temps);
@@ -56,9 +57,8 @@ public class Client{
 			return false;
 		}
 		catch (Exception e) {
-//				System.out.println(e);
-				throw new Exception(e);
-			}
+			throw new Exception("Goodbye");
+		}
 	}
 	
 	//listens and sends input to server for modeSelection and startGame code
@@ -70,7 +70,7 @@ public class Client{
 			try {	
 				temps = con.readInput();
 				if ((!temps.equals("0")) && (!temps.equals("1")) && (!temps.equals("2"))){
-					throw new Exception("Invalid entry, please enter 0 or 1 \nSelect game mode: 0 for singleplayer, 1 for multiplayer");
+					throw new Exception("Invalid entry \nSelect game mode: 0 for singleplayer, 1 for multiplayer");
 				}else if(temps.equals("0")) {
 					con.sendMessage(temps);
 					if (play()) {
@@ -97,9 +97,12 @@ public class Client{
 					break;
 			}	
 			catch (Exception e) {
-//				e.printStackTrace();
-				System.out.println(e.getMessage());
-			}
+				if (e.getMessage() == null) {
+					System.out.println("Goodbye");					
+				}else {
+					System.out.println(e.getMessage());
+				}
+			}			
 		}
 		System.out.println(con.receiveMessage());
 		temps = con.readInput();

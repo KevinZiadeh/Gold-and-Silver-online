@@ -1,12 +1,19 @@
-Ctrl+C in multiplayer
-divide two player game to use in tournament
+Essential Stuff todo for submission:
+	Testing
+	WAMP MySQL (online database)
+	Report writing
 
-multiple two player
-
-Multiplayer tournament
-
-Make game end prematurely
-Hash password
-Add info menu and user menu
+Stuff we can do to make the project better:
+	Learn how to do GUI
 
 
+Stuff/Add for code:
+	Ctrl+C in multiplayer
+
+	Multiplayer tournament
+
+
+
+Additional Stuff we can add:
+	Hash password
+	Add info menu and user menu
