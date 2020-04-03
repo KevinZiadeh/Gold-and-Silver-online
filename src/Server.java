@@ -26,7 +26,8 @@ public class Server {
 			//establish connection with the database, we pass username and password
 			//here demo is database name, root is username and "" password  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://localhost:3306/demo","root","26-11Zkevin"); 
+			"jdbc:mysql://db4free.net:3306/eece350project","eece350","livelove350"); 
+
 			
 			//the object of statement is responsible to execute queries
 			db = con.createStatement();  
@@ -63,6 +64,7 @@ public class Server {
 	//set up MySQL connection and creates server
 	public static void main(String[] args) throws Exception {
 		try {
+			System.out.println("Server may take some time to establish connection to database");
 			connect();
 			System.out.println("Connection to MySQL was successful");
 		}
@@ -195,9 +197,10 @@ class Capitalizer extends Server implements Runnable {
 		    			try {
 		    				con.sendMessage("Enter nickname:");
 		    				String nick = con.receiveMessage();
-		    				con.sendMessage("Successful");
-		    				con.sendMessage("Thank you for signing up. We'll give you 50 gold coins. Enjoy");
-		    				con.sendUser(new User(usern, pass, nick));		    				
+		    				con.sendMessage("Successful \nThank you for signing up. Enjoy");
+//		    				con.sendMessage("Thank you for signing up. We'll give you 50 gold coins. Enjoy");
+		    				con.sendUser(new User(usern, pass, nick));
+		    				break;
 		    			}
 		    			catch (Exception e) {
 			    			if (e.getCause() == null){
@@ -260,23 +263,31 @@ class Capitalizer extends Server implements Runnable {
 						gamemult_2[0] = g;	
 						conmult_2[0] = con;	
 						con.sendMessage("Waiting for another player");
-						//waiting until user2 connects and starts this thread
-						while (!g.isAlive()) {
+						g.kill=true;
+						//Waiting until game starts
+						while (g.kill) {
+							try {
+								con.sendMessage("");
+							}catch (Exception e){
+								gamemult_2[0] = null;	
+								conmult_2[0] = null;	
+								throw new Exception(e.getMessage());	
+							}
 							Thread.sleep(1000);
 						}
-						//waiting until the game ends. This breaks when game.kill is true
-						while (g.isAlive()) {
+						//waiting until game is finished
+						while (!g.kill) {
 							Thread.sleep(1000);
 						}
 						break;
 					  }else if (gamemult_2[1] == null) {
+						  System.out.println(gamemult_2[0]+" "+gamemult_2[0]);
 						  Game user1_game = gamemult_2[0];
-						  user1_game.start();	//to start user1 game thread to be able t tell user1 that the game ended
 						  ServerConnection user1_con = conmult_2[0];
 						  gamemult_2[0] = null;
 						  conmult_2[0] = null;
-						  conmult_2[1] = null;
 						  int number = g.generateNumber();
+						  user1_game.kill = false;	//to start user1 game
 						  con.sendMessage("Another player has been waiting for you");
 						  new Multiplayer(user1_game, g, user1_con, con, number).main();
 						  user1_game.kill = true;	//to kill user1 thread for it to exit the loop
@@ -286,7 +297,7 @@ class Capitalizer extends Server implements Runnable {
 			  }
 			  catch (Exception e) {
 				  if (e.getCause() == null){
-					  System.out.println("here");
+//					  e.printStackTrace();
 					  con.sendMessage(e.getMessage());
 				  }else {
 					  throw new Exception(e.getMessage());	
@@ -294,11 +305,11 @@ class Capitalizer extends Server implements Runnable {
 			  }
 		}
 		//check if user wants to play again. Calls mode selection 
-		playAgain();
+		playAgain(g);
 	}
 	
 	//check if user wants to play again. Calls mode selection 
-	public void playAgain() throws Exception {
+	public void playAgain(Game g) throws Exception {
 		int selectMode;
 		con.sendMessage("Do you want to play again? 0 for yes, 1 for no");
 		while (true) {
@@ -327,8 +338,6 @@ class Capitalizer extends Server implements Runnable {
 	public int startGame(Game g, int number, ServerConnection con, boolean Mult) throws Exception {
 		if (Mult) {
 			g.user.setGold(g.user.getGold()-500);			
-		}else{
-			g.user.setGold(g.user.getGold()-50);			
 		}
 		g.number = number;
 		g.nbGuesses = 0;
@@ -431,7 +440,6 @@ class Capitalizer extends Server implements Runnable {
 			System.out.println(e.getMessage());
 		} 
 		close();
-
 	}
 }
 
@@ -462,9 +470,8 @@ class Multiplayer extends Capitalizer{
 			try {
 				user1_guesses = startGame(user1_game, number, user1_con, true);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				user1_guesses = -1;
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		});
 		user1_thread.start();
@@ -473,9 +480,8 @@ class Multiplayer extends Capitalizer{
 			try {
 				user2_guesses = startGame(user2_game, number, user2_con, true);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				user2_guesses = -1;
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		});
 		user2_thread.start();
@@ -483,14 +489,22 @@ class Multiplayer extends Capitalizer{
 		while (user1_guesses == 0 && user2_guesses == 0) {
 			Thread.sleep(1000);
 		}
-		if (user1_guesses == 0) {
+		if (user1_guesses == 0 && user2_guesses > 0) {
 			user2_con.sendMessage("Waiting for other player to finish \n");
-		}else if (user2_guesses == 0) {
+		}
+		else if (user2_guesses == 0 && user1_guesses > 0) {
 			user1_con.sendMessage("Waiting for other player to finish \n");
 		}
 		while (user1_guesses == 0 || user2_guesses == 0) {
 			Thread.sleep(1000);
 		}
+		if (user1_guesses < 0) {
+			user2_con.sendMessage("Player 1 left \n");
+		}
+		else if (user2_guesses < 0) {
+			user1_con.sendMessage("Player 2 left \n");
+		}
+		
 		//handles winning logic
 		if (user1_guesses == user2_guesses) {
 			user1_con.sendMessage("It was a tie. You won 500 gold! \n");
@@ -504,6 +518,7 @@ class Multiplayer extends Capitalizer{
 			user1_game.user.setWin();
 			user1_game.user.setWinCombo(1);
 			winCombo(user1_game);
+			if (user2_guesses < 0) return;
 			user2_con.sendMessage("Sorry, you lost \n");
 			user2_game.user.setLoss();
 			user2_game.user.setWinCombo(0);
@@ -513,7 +528,8 @@ class Multiplayer extends Capitalizer{
 			user2_game.user.setGold(user2_game.user.getGold()+1000);
 			user2_game.user.setWin();
 			user2_game.user.setWinCombo(1);
-			winCombo(user1_game);
+			winCombo(user2_game);
+			if (user1_guesses < 0) return;
 			user1_con.sendMessage("Sorry, you lost \n");
 			user1_game.user.setLoss();
 			user1_game.user.setWinCombo(0);

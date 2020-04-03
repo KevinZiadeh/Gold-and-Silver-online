@@ -18,12 +18,11 @@ public class Client{
 			do {
 				temps = con.receiveMessage();
 				System.out.println(temps);
-				if (temps.equals("Successful")) {
+				if (temps.contains("Successful")) {
 					break;
 				}
 				con.sendMessage(con.readInput());
-			} while (!temps.equals("Successful"));
-//			System.out.println(con.receiveMessage());
+			} while (!temps.contains("Successful"));
 			user = (User) con.receiveUser();
 			System.out.println(user.getString());
 			} 
@@ -39,14 +38,14 @@ public class Client{
 		try {
 			do {
 				temps = con.receiveMessage();
-				if (temps.contains("Congrats!") || temps.contains("Sorry") || temps.contains("tie") || temps.contains("Waiting")) {
+				if (temps.contains("Congrats!") || temps.contains("Sorry") || temps.contains("tie") || temps.contains("Waiting") || temps.contains("left")) {
 					break;
 				}
 				System.out.println(temps);
 				String msg = con.readInput();
 				con.sendMessage(msg);
-			} while (!temps.contains("Congrats!") && !temps.contains("Sorry") && !temps.contains("tie") && !temps.contains("Waiting"));
-			if (temps.contains("Waiting")) {
+			} while (!temps.contains("Congrats!") && !temps.contains("Sorry") && !temps.contains("tie") && !temps.contains("Waiting") && !temps.contains("left"));
+			if (temps.contains("Waiting") || temps.contains("left")) {
 				System.out.print(temps);
 				temps = con.receiveMessage();
 			}
@@ -82,11 +81,17 @@ public class Client{
 				}else if(temps.equals("1")){
 					con.sendMessage(temps);
 					receiver = con.receiveMessage();
+					//cant play online
 					if (receiver.contains("online")) {
 						throw new Exception(receiver);
 					}
 					System.out.println(receiver);
-					System.out.println(con.receiveMessage());
+					receiver = con.receiveMessage();
+					//check if thread is still alive while waiting for another player
+					while (receiver.equals("")) {
+						receiver = con.receiveMessage();	
+					}
+					System.out.println(receiver);
 					if (play()) {
 						comboCounter++;
 						if (comboCounter % 5 == 0) {
@@ -129,11 +134,11 @@ public class Client{
 			con.sendUser(user);
 			startGame(user.getWinCombo());
 			System.out.println("Goodbye");
-			con.s.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Fuck");
 		}
+		con.s.close();
 	}
 }

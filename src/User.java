@@ -32,7 +32,7 @@ public class User implements java.io.Serializable{
 		LocalDateTime date = LocalDateTime.now();
 		ZoneOffset  zone = ZoneOffset.UTC;
 		this.datetimeLastLogin = date.toEpochSecond(zone);
-		String query = "INSERT INTO `demo`.`users` (`username`, `password`, `nickname`, `goldCoins` ,`datetimeLastLogin`) VALUES ('"+username+"', '"+password+"', '"+nickname+"', '"+this.goldCoins+"', '"+this.datetimeLastLogin+"');";
+		String query = "INSERT INTO `eece350project`.`Users` (`username`, `password`, `nickname`, `goldCoins` ,`datetimeLastLogin`) VALUES ('"+username+"', '"+password+"', '"+nickname+"', '"+this.goldCoins+"', '"+this.datetimeLastLogin+"');";
 		Server.executeUpdate(query);
 	}
 	
@@ -57,7 +57,7 @@ public class User implements java.io.Serializable{
 //				this.datetimeLastLogin = previousTime;
 //				this.goldCoins = r.getInt("goldCoins");
 //			}
-//			String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
+//			String query = "UPDATE `eece350project`.`Users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
 //			Server.executeUpdate(query);
 //			r.close();
 //		}
@@ -88,7 +88,7 @@ public class User implements java.io.Serializable{
 			this.datetimeLastLogin = previousTime;
 			this.goldCoins = goldCoins;
 		}
-		String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `goldCoins` = '"+this.goldCoins+"', `datetimeLastLogin` = '"+this.datetimeLastLogin+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	catch (Exception e) {
@@ -109,7 +109,7 @@ public class User implements java.io.Serializable{
 			String query;
 			this.goldCoins = this.goldCoins + n;
 			this.silverCoins = this.silverCoins - 10*n;
-			query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"', `silverCoins` = '"+this.silverCoins+"' WHERE (`username` = '"+this.username+"');";
+			query = "UPDATE `eece350project`.`Users` SET `goldCoins` = '"+this.goldCoins+"', `silverCoins` = '"+this.silverCoins+"' WHERE (`username` = '"+this.username+"');";
 			Server.executeUpdate(query);
 			return true;
 		}
@@ -133,7 +133,7 @@ public class User implements java.io.Serializable{
 	//Setter
 	public void setGold(int x) {
 		this.goldCoins = x;
-		String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `goldCoins` = '"+this.goldCoins+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	
@@ -145,7 +145,7 @@ public class User implements java.io.Serializable{
 	//Setter
 	public void setSilver(int x) {
 		this.silverCoins = x;
-		String query = "UPDATE `demo`.`users` SET `silverCoins` = '"+this.silverCoins+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `silverCoins` = '"+this.silverCoins+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	
@@ -157,7 +157,7 @@ public class User implements java.io.Serializable{
 	//Setter
 	public void setLoss() {
 		this.numLosses++;
-		String query = "UPDATE `demo`.`users` SET `numLosses` = '"+this.numLosses+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `numLosses` = '"+this.numLosses+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	
@@ -169,7 +169,7 @@ public class User implements java.io.Serializable{
 	//Setter
 	public void setWin() {
 		this.numWins++;
-		String query = "UPDATE `demo`.`users` SET `numWins` = '"+this.numWins+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `numWins` = '"+this.numWins+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	
@@ -185,14 +185,14 @@ public class User implements java.io.Serializable{
 		}else{
 			this.numWinsCombo = 0;
 		}
-		String query = "UPDATE `demo`.`users` SET `numWinsCombo` = '"+this.numWinsCombo+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `numWinsCombo` = '"+this.numWinsCombo+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	
 	//cheat that we can use to get 500 gold.
 	public void generate() {
 		this.goldCoins = this.goldCoins + 500;
-		String query = "UPDATE `demo`.`users` SET `goldCoins` = '"+this.goldCoins+"' WHERE (`username` = '"+this.username+"');";
+		String query = "UPDATE `eece350project`.`Users` SET `goldCoins` = '"+this.goldCoins+"' WHERE (`username` = '"+this.username+"');";
 		Server.executeUpdate(query);
 	}
 	

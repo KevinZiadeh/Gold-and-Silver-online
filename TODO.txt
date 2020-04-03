@@ -1,6 +1,5 @@
 Essential Stuff todo for submission:
 	Testing
-	WAMP MySQL (online database)
 	Report writing
 
 Stuff we can do to make the project better:
@@ -8,8 +7,6 @@ Stuff we can do to make the project better:
 
 
 Stuff/Add for code:
-	Ctrl+C in multiplayer
-
 	Multiplayer tournament
 
 

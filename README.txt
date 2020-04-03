@@ -1,11 +1,28 @@
-Project: Gold-and-Silver-online
-Description: Game like mastermind, where you get 1 gold if you guess the number and the position, one silver if you guess the number in a different position
+PROJECT TITLE: Gold and Silver online
 
-Main.java is useless. It was used for testing purposes.
+PURPOSE OF PROJECT: 	Apply networking knowledge to create a multi threaded server 
+			to be able to play a game
 
-To run:
-	Make sure you have mysql-connector added to your Buildpath in Eclipse. 
-	Make sure you have a MySQL database set up "demo/Users"
-	Run Server.java from eclipse
-	Type in the terminal 	"java Client 127.0.0.1 12345"
-				"java Client local_ip_address 12345"
+VERSION: 1.0.0
+
+DESCRIPTION: 	Game like mastermind. The player has to guess a secret number 
+		(4 distincts digits). Each guess costs 5 gold coins. If the player 
+		guesses the correct number in the wrong position, he gets 1 silver.
+		If the player guesses the correct number in the correct position, he 
+		gets 1 gold. 10 silver can be exchanged for 1 gold.
+		
+AUTHORS:	ARDO Nour
+		BAZAZO dANA
+		KHALED Paul Karim
+		ZIADEH Kevin
+
+HOW TO STRART THIS PROJECT:
+		Create a MySQL database and change the parameters to connect to it in
+			in the Server class, connect function.
+		Select the port you want to run the server, then start the server.
+		Add mysql-connector-java-8.0.19.jar in the lib folder to the java Build Path
+		Run the server. (using eclipse)
+		
+USER INSTRUCTIONS:
+		Run the Client from the terminal by typing:
+			java Client server_ip_address port_number
