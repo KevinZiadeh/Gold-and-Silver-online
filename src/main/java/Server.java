@@ -12,6 +12,9 @@ public class Server {
 	protected ServerConnection con;
 	public static Game[] gamemult_2;
 	public static ServerConnection[] conmult_2;
+        public static Tournament tourn8;
+        public static Tournament tourn16;
+        public static Tournament tourn32;
 
 	//use it to connect to database
 	private static void connect() throws Exception {
@@ -70,9 +73,67 @@ public class Server {
 		try (var listener = new ServerSocket(12345)) {
 			System.out.println("The capitalization server is running...");
 			System.out.println(InetAddress.getLocalHost());
-			var pool = Executors.newFixedThreadPool(16);
+			var pool = Executors.newFixedThreadPool(64);
+                        //initialize elements for multiplayer support
 			gamemult_2 =  new Game[2];
 			conmult_2 =  new ServerConnection[2];
+                        tourn8 = new Tournament(8);
+                        tourn16 = new Tournament(16);
+                        tourn32 = new Tournament(32);
+                        Thread tourn8Thread = new Thread(() -> {
+                            while (true){
+                                try{
+                                    while (!tourn8.isfull){
+                                        System.out.println("waiting");
+                                        Thread.sleep(5000);
+                                    }
+                                    System.out.println("Tournament 8");
+                                    tourn8.run();               //can make it possible to have multiple  tournaments at the same time by applying same techniques as we did for tourn8Thread
+                                    tourn8.isfull = false;
+                                }
+                                catch (Exception e){
+                                        e.printStackTrace();
+                                        break;
+                                }
+                            }
+                        });
+                        Thread tourn16Thread = new Thread(() -> {
+                            while (true){
+                                try{
+                                    while (!tourn16.isfull){
+                                        System.out.println("waiting");
+                                        Thread.sleep(5000);
+                                    }
+                                    System.out.println("Tournament 16");
+                                    tourn16.run();               //can make it possible to have multiple  tournaments at the same time by applying same techniques as we did for tourn8Thread
+                                    tourn16.isfull = false;
+                                }
+                                catch (Exception e){
+                                        e.printStackTrace();
+                                        break;
+                                }
+                            }
+                        });
+                        Thread tourn32Thread = new Thread(() -> {
+                            while (true){
+                                try{
+                                    while (!tourn32.isfull){
+                                        System.out.println("waiting");
+                                        Thread.sleep(5000);
+                                    }
+                                    System.out.println("Tournament 32");
+                                    tourn32.run();               //can make it possible to have multiple  tournaments at the same time by applying same techniques as we did for tourn8Thread
+                                    tourn32.isfull = false;
+                                }
+                                catch (Exception e){
+                                        e.printStackTrace();
+                                        break;
+                                }
+                            }
+                        });
+                        tourn8Thread.start();
+                        tourn16Thread.start();
+                        tourn32Thread.start();
 			while (true) {
 				pool.execute(new Capitalizer(pool, listener.accept()));
 			}
@@ -203,10 +264,10 @@ class Capitalizer extends Server implements Runnable {
 			else if(msg.equals("multi")) {
 /*
  * We use gamemult_2 array to keep track of the state of players
- * gamemult_2[0]:	if it is NOT null => 	player 1 is in the waiting area
+ * gamemult_2[0]:	if it is NOT null =>            player 1 is in the waiting area
  * gamemult_2[0]:	if it IS null =>		player 2 is in waiting area and set it to null to make it possible for others to play
- * 											OR there is no player 1 yet
- * gamemult_2[1]:	if it is NOT null =>	player 1 left the waiting area
+ *                                                          OR there is no player 1 yet
+ * gamemult_2[1]:	if it is NOT null =>            player 1 left the waiting area
  * gamemult_2[1]:	if it IS null =>		player 1 is inside waiting area AND pressed ready
  * */
 				if (user.getGold()<500) {
@@ -265,6 +326,59 @@ class Capitalizer extends Server implements Runnable {
 					  user1_game.kill = true;	//to kill user1 thread for it to exit the loop
 				  }
 			  }
+                        else if(msg.equals("tournament")) {
+/*
+*
+*/
+				if (user.getGold()<500) {
+					con.sendMessage("ERROR: You don't have enough to play online");
+					continue;
+				}
+                                con.sendMessage("ok");
+                                msg = con.receiveMessage();
+                                if (msg.equals("exit")){
+                                    continue;
+                                }
+                                if (msg.equals("eight")){
+                                    g.kill = false;
+                                    tourn8.addPlayer(g, con);
+                                    msg = con.receiveMessage();
+                                    if (msg.equals("exit")){
+//                                        con.sendMessage("ok");      //remove it maybe
+                                        tourn8.removePlayer(g, con);
+                                        continue;
+                                    }
+                                    while(!g.kill){                    //wait until game is over
+                                        Thread.sleep(5000); 
+                                    }
+                                }
+                                else if (msg.equals("sixteen")){
+                                    g.kill = false;
+                                    tourn16.addPlayer(g, con);
+                                    msg = con.receiveMessage();
+                                    if (msg.equals("exit")){
+//                                        con.sendMessage("ok");      //remove it maybe
+                                        tourn8.removePlayer(g, con);
+                                        continue;
+                                    }
+                                    while(!g.kill){                    //wait until game is over
+                                        Thread.sleep(5000); 
+                                    }
+                                }
+                                else if (msg.equals("thirtytwo")){                                
+                                    g.kill = false;
+                                    tourn32.addPlayer(g, con);
+                                    msg = con.receiveMessage();
+                                    if (msg.equals("exit")){
+//                                        con.sendMessage("ok");      //remove it maybe
+                                        tourn8.removePlayer(g, con);
+                                        continue;
+                                    }
+                                    while(!g.kill){                    //wait until game is over
+                                        Thread.sleep(5000); 
+                                    }
+                                }
+                        }
 		}
 	}
 	
@@ -293,16 +407,7 @@ class Capitalizer extends Server implements Runnable {
 						}
 						continue;
 					}
-					if (msg.equals("trade")) {
-						try {
-							g.user.Trade(1); //throws an exception if not possible
-							con.sendMessage("ok");
-						}catch (Exception e) {
-							e.printStackTrace();
-							con.sendMessage("ERROR: " + e.getMessage());
-						}
-						continue;
-					}else if (msg.equals("exit")) {
+					if (msg.equals("exit")) {
 						if (g.nbGuesses == 0 && !Mult) {
 							return 0;
 						}

@@ -54,12 +54,15 @@ class Multiplayer extends Capitalizer{
 		while (user1_guesses == 0 || user2_guesses == 0) {
 			Thread.sleep(1000);
 		}
-		if (user1_guesses < 0) {
+		if (user1_guesses < 0 && user2_guesses >= 0) {
 			user2_con.sendMessage("Player 1 left");
 		}
-		else if (user2_guesses < 0) {
+		else if (user2_guesses < 0 && user1_guesses >= 0) {
 			user1_con.sendMessage("Player 2 left");
 		}
+                else if (user2_guesses < 0 && user1_guesses < 0){ //both left
+                        return;
+                }
 		//handles winning logic
 		if (user1_guesses == user2_guesses) {
 			user1_con.sendMessage("It was a tie. You won 500 gold!");
@@ -90,4 +93,66 @@ class Multiplayer extends Capitalizer{
 			user1_game.user.setWinCombo(0);
 		}
 	}
+        
+        
+        public int getWinner() throws Exception {
+            user1_con.sendMessage("Winner is the one who gets the answer in the fewest guesses possible");
+            user2_con.sendMessage("Winner is the one who gets the answer in the fewest guesses possible");
+            //Run user1 game in their own thread
+            Thread user1_thread = new Thread(() -> {
+                    try {
+                            user1_guesses = startGame(user1_game, number, user1_con, true);
+                    } catch (Exception e) {
+                            user1_guesses = -1;
+                            e.printStackTrace();
+                    }
+            });
+            user1_thread.start();
+            //Run user2 game in their own thread
+            Thread user2_thread = new Thread(() -> {
+                    try {
+                            user2_guesses = startGame(user2_game, number, user2_con, true);
+                    } catch (Exception e) {
+                            user2_guesses = -1;
+//				e.printStackTrace();
+                    }
+            });
+            user2_thread.start();
+            //wait until both players finish the game
+            while (user1_guesses == 0 && user2_guesses == 0) {
+                    Thread.sleep(1000);
+            }
+            if (user1_guesses == 0 && user2_guesses > 0) {
+                    user2_con.sendMessage("Waiting for other player to finish");
+            }
+            else if (user2_guesses == 0 && user1_guesses > 0) {
+                    user1_con.sendMessage("Waiting for other player to finish");
+            }
+            while (user1_guesses == 0 || user2_guesses == 0) {
+                    Thread.sleep(1000);
+            }
+            if (user1_guesses < 0) {
+                    user2_con.sendMessage("Player 1 left");
+            }
+            else if (user2_guesses < 0) {
+                    user1_con.sendMessage("Player 2 left");
+            }
+            //handles winning logic
+            if (user1_guesses == user2_guesses) {
+                    if (Math.random()>0.5){
+                        return 1;
+                    }else{
+                        return 2;
+                    }
+            }
+            else if (user1_guesses > 0 && (user1_guesses < user2_guesses || user2_guesses < 0)) {
+                    return 1;
+            }
+            else {
+                    return 2;
+            }
+    }
+        
+        
+        
 }

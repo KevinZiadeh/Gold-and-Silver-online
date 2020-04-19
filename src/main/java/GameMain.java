@@ -57,6 +57,13 @@ public class GameMain extends javax.swing.JFrame {
 
         bg = new javax.swing.JPanel();
         container = new javax.swing.JPanel();
+        WaitingArea = new javax.swing.JPanel();
+        WaitingAreaExitPanel = new javax.swing.JPanel();
+        WaitingAreaExitLabel = new javax.swing.JLabel();
+        WaitingAreaMsgPanel = new javax.swing.JPanel();
+        WaitingAreaMsgLabel = new javax.swing.JLabel();
+        WaitingAreaReadyPanel = new javax.swing.JPanel();
+        WaitingAreaReadyLabel = new javax.swing.JLabel();
         MainMenu = new javax.swing.JPanel();
         SingleplayerSelectionPanel = new javax.swing.JPanel();
         SingleplayerSelectionLabel = new javax.swing.JLabel();
@@ -86,6 +93,26 @@ public class GameMain extends javax.swing.JFrame {
         MultReadyLabel = new javax.swing.JLabel();
         MultExitPanel = new javax.swing.JPanel();
         MultExitLabel = new javax.swing.JLabel();
+        TournamentSelection = new javax.swing.JPanel();
+        TournamentEightPanel = new javax.swing.JPanel();
+        TournamentEightLabel = new javax.swing.JLabel();
+        TournamentSixteenPanel = new javax.swing.JPanel();
+        TournamentSixteenLabel = new javax.swing.JLabel();
+        TournamentThirtytwoPanel = new javax.swing.JPanel();
+        TournamentThirtytwoLabel = new javax.swing.JLabel();
+        TournamentSelectionExitPanel = new javax.swing.JPanel();
+        TournamentSelectionExitLabel = new javax.swing.JLabel();
+        GamePlayTournament = new javax.swing.JPanel();
+        TournamentTradePanel = new javax.swing.JPanel();
+        TournamentTradeLabel = new javax.swing.JLabel();
+        TournamentGuess = new javax.swing.JPanel();
+        TournamentGuessSeperator = new javax.swing.JSeparator();
+        TournamentGuessLabel = new javax.swing.JLabel();
+        TournamentGuessInput = new javax.swing.JTextField();
+        TournamentExitPanel = new javax.swing.JPanel();
+        TournamentExitLabel = new javax.swing.JLabel();
+        TournamentGuessSubmitPanel = new javax.swing.JPanel();
+        TournamentGuessSubmitLabel = new javax.swing.JLabel();
         GameTopMenu = new javax.swing.JPanel();
         HowToSeperator = new javax.swing.JSeparator();
         HowToPanel = new javax.swing.JPanel();
@@ -113,6 +140,121 @@ public class GameMain extends javax.swing.JFrame {
         container.setBackground(new java.awt.Color(50, 30, 90));
         container.setPreferredSize(new java.awt.Dimension(1280, 720));
         container.setLayout(new java.awt.CardLayout());
+
+        WaitingArea.setBackground(new java.awt.Color(50, 30, 90));
+        WaitingArea.setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        WaitingAreaExitPanel.setBackground(new java.awt.Color(90, 50, 130));
+        WaitingAreaExitPanel.setPreferredSize(new java.awt.Dimension(256, 79));
+
+        WaitingAreaExitLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        WaitingAreaExitLabel.setForeground(new java.awt.Color(230, 230, 230));
+        WaitingAreaExitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WaitingAreaExitLabel.setText("E X I T");
+        WaitingAreaExitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        WaitingAreaExitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                WaitingAreaExitLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                WaitingAreaExitLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                WaitingAreaExitLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout WaitingAreaExitPanelLayout = new javax.swing.GroupLayout(WaitingAreaExitPanel);
+        WaitingAreaExitPanel.setLayout(WaitingAreaExitPanelLayout);
+        WaitingAreaExitPanelLayout.setHorizontalGroup(
+            WaitingAreaExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+        );
+        WaitingAreaExitPanelLayout.setVerticalGroup(
+            WaitingAreaExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+        );
+
+        WaitingAreaMsgPanel.setBackground(new java.awt.Color(230, 230, 230));
+
+        WaitingAreaMsgLabel.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        WaitingAreaMsgLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WaitingAreaMsgLabel.setText("Waiting for other players");
+
+        javax.swing.GroupLayout WaitingAreaMsgPanelLayout = new javax.swing.GroupLayout(WaitingAreaMsgPanel);
+        WaitingAreaMsgPanel.setLayout(WaitingAreaMsgPanelLayout);
+        WaitingAreaMsgPanelLayout.setHorizontalGroup(
+            WaitingAreaMsgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaMsgLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+        );
+        WaitingAreaMsgPanelLayout.setVerticalGroup(
+            WaitingAreaMsgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaMsgLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+        );
+
+        WaitingAreaReadyPanel.setBackground(new java.awt.Color(90, 50, 130));
+        WaitingAreaReadyPanel.setPreferredSize(new java.awt.Dimension(1280, 100));
+
+        WaitingAreaReadyLabel.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        WaitingAreaReadyLabel.setForeground(new java.awt.Color(230, 230, 230));
+        WaitingAreaReadyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WaitingAreaReadyLabel.setText("R E A D Y");
+        WaitingAreaReadyLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        WaitingAreaReadyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                WaitingAreaReadyLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                WaitingAreaReadyLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                WaitingAreaReadyLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout WaitingAreaReadyPanelLayout = new javax.swing.GroupLayout(WaitingAreaReadyPanel);
+        WaitingAreaReadyPanel.setLayout(WaitingAreaReadyPanelLayout);
+        WaitingAreaReadyPanelLayout.setHorizontalGroup(
+            WaitingAreaReadyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaReadyLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+        );
+        WaitingAreaReadyPanelLayout.setVerticalGroup(
+            WaitingAreaReadyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WaitingAreaReadyLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout WaitingAreaLayout = new javax.swing.GroupLayout(WaitingArea);
+        WaitingArea.setLayout(WaitingAreaLayout);
+        WaitingAreaLayout.setHorizontalGroup(
+            WaitingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WaitingAreaLayout.createSequentialGroup()
+                .addGroup(WaitingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(WaitingAreaLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(WaitingAreaExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WaitingAreaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(WaitingAreaReadyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WaitingAreaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(WaitingAreaMsgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(377, 377, 377))
+        );
+        WaitingAreaLayout.setVerticalGroup(
+            WaitingAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WaitingAreaLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(WaitingAreaExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addComponent(WaitingAreaMsgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(WaitingAreaReadyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
+        );
+
+        container.add(WaitingArea, "card7");
 
         MainMenu.setBackground(new java.awt.Color(50, 30, 90));
 
@@ -488,6 +630,7 @@ public class GameMain extends javax.swing.JFrame {
         container.add(GamePlay, "card3");
 
         Multiplayer.setBackground(new java.awt.Color(50, 30, 90));
+        Multiplayer.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         MultiMsgPanel.setBackground(new java.awt.Color(230, 230, 230));
 
@@ -499,7 +642,7 @@ public class GameMain extends javax.swing.JFrame {
         MultiMsgPanel.setLayout(MultiMsgPanelLayout);
         MultiMsgPanelLayout.setHorizontalGroup(
             MultiMsgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MultiMsgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+            .addComponent(MultiMsgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
         MultiMsgPanelLayout.setVerticalGroup(
             MultiMsgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,11 +673,11 @@ public class GameMain extends javax.swing.JFrame {
         MultReadyPanel.setLayout(MultReadyPanelLayout);
         MultReadyPanelLayout.setHorizontalGroup(
             MultReadyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MultReadyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(MultReadyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MultReadyPanelLayout.setVerticalGroup(
             MultReadyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MultReadyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(MultReadyLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         MultExitPanel.setBackground(new java.awt.Color(90, 50, 130));
@@ -561,11 +704,11 @@ public class GameMain extends javax.swing.JFrame {
         MultExitPanel.setLayout(MultExitPanelLayout);
         MultExitPanelLayout.setHorizontalGroup(
             MultExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MultExitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+            .addComponent(MultExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
         MultExitPanelLayout.setVerticalGroup(
             MultExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MultExitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+            .addComponent(MultExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout MultiplayerLayout = new javax.swing.GroupLayout(Multiplayer);
@@ -573,31 +716,374 @@ public class GameMain extends javax.swing.JFrame {
         MultiplayerLayout.setHorizontalGroup(
             MultiplayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MultiplayerLayout.createSequentialGroup()
-                .addComponent(MultReadyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(MultiplayerLayout.createSequentialGroup()
-                .addGroup(MultiplayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MultiplayerLayout.createSequentialGroup()
-                        .addGap(383, 383, 383)
-                        .addComponent(MultiMsgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MultiplayerLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(MultExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(73, 73, 73)
+                .addComponent(MultExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MultiplayerLayout.createSequentialGroup()
+                .addContainerGap(390, Short.MAX_VALUE)
+                .addComponent(MultiMsgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(373, 373, 373))
+            .addComponent(MultReadyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MultiplayerLayout.setVerticalGroup(
             MultiplayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MultiplayerLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(MultExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(55, 55, 55)
                 .addComponent(MultiMsgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addGap(132, 132, 132)
                 .addComponent(MultReadyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addGap(86, 86, 86))
         );
 
         container.add(Multiplayer, "card5");
+
+        TournamentSelection.setBackground(new java.awt.Color(50, 30, 90));
+        TournamentSelection.setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        TournamentEightPanel.setBackground(new java.awt.Color(230, 230, 230));
+
+        TournamentEightLabel.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentEightLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        TournamentEightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentEightLabel.setText("8 PLAYERS");
+        TournamentEightLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentEightLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentEightLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentEightLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentEightLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentEightPanelLayout = new javax.swing.GroupLayout(TournamentEightPanel);
+        TournamentEightPanel.setLayout(TournamentEightPanelLayout);
+        TournamentEightPanelLayout.setHorizontalGroup(
+            TournamentEightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentEightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+        );
+        TournamentEightPanelLayout.setVerticalGroup(
+            TournamentEightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentEightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+        );
+
+        TournamentSixteenPanel.setBackground(new java.awt.Color(230, 230, 230));
+
+        TournamentSixteenLabel.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentSixteenLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        TournamentSixteenLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentSixteenLabel.setText("16 PLAYERS");
+        TournamentSixteenLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentSixteenLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentSixteenLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentSixteenLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentSixteenLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentSixteenPanelLayout = new javax.swing.GroupLayout(TournamentSixteenPanel);
+        TournamentSixteenPanel.setLayout(TournamentSixteenPanelLayout);
+        TournamentSixteenPanelLayout.setHorizontalGroup(
+            TournamentSixteenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentSixteenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+        );
+        TournamentSixteenPanelLayout.setVerticalGroup(
+            TournamentSixteenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentSixteenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+        );
+
+        TournamentThirtytwoPanel.setBackground(new java.awt.Color(230, 230, 230));
+
+        TournamentThirtytwoLabel.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentThirtytwoLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        TournamentThirtytwoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentThirtytwoLabel.setText("32 PLAYERS");
+        TournamentThirtytwoLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentThirtytwoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentThirtytwoLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentThirtytwoLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentThirtytwoLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentThirtytwoPanelLayout = new javax.swing.GroupLayout(TournamentThirtytwoPanel);
+        TournamentThirtytwoPanel.setLayout(TournamentThirtytwoPanelLayout);
+        TournamentThirtytwoPanelLayout.setHorizontalGroup(
+            TournamentThirtytwoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentThirtytwoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+        );
+        TournamentThirtytwoPanelLayout.setVerticalGroup(
+            TournamentThirtytwoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentThirtytwoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+        );
+
+        TournamentSelectionExitPanel.setBackground(new java.awt.Color(90, 50, 130));
+        TournamentSelectionExitPanel.setPreferredSize(new java.awt.Dimension(256, 79));
+
+        TournamentSelectionExitLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        TournamentSelectionExitLabel.setForeground(new java.awt.Color(230, 230, 230));
+        TournamentSelectionExitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentSelectionExitLabel.setText("E X I T");
+        TournamentSelectionExitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentSelectionExitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentSelectionExitLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentSelectionExitLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentSelectionExitLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentSelectionExitPanelLayout = new javax.swing.GroupLayout(TournamentSelectionExitPanel);
+        TournamentSelectionExitPanel.setLayout(TournamentSelectionExitPanelLayout);
+        TournamentSelectionExitPanelLayout.setHorizontalGroup(
+            TournamentSelectionExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentSelectionExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+        );
+        TournamentSelectionExitPanelLayout.setVerticalGroup(
+            TournamentSelectionExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentSelectionExitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout TournamentSelectionLayout = new javax.swing.GroupLayout(TournamentSelection);
+        TournamentSelection.setLayout(TournamentSelectionLayout);
+        TournamentSelectionLayout.setHorizontalGroup(
+            TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TournamentSelectionLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(TournamentSelectionExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(951, Short.MAX_VALUE))
+            .addGroup(TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TournamentSelectionLayout.createSequentialGroup()
+                    .addGap(236, 236, 236)
+                    .addGroup(TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(TournamentSelectionLayout.createSequentialGroup()
+                            .addComponent(TournamentEightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(165, 165, 165)
+                            .addComponent(TournamentSixteenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(TournamentSelectionLayout.createSequentialGroup()
+                            .addGap(247, 247, 247)
+                            .addComponent(TournamentThirtytwoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(237, Short.MAX_VALUE)))
+        );
+        TournamentSelectionLayout.setVerticalGroup(
+            TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TournamentSelectionLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(TournamentSelectionExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(579, Short.MAX_VALUE))
+            .addGroup(TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TournamentSelectionLayout.createSequentialGroup()
+                    .addGap(204, 204, 204)
+                    .addGroup(TournamentSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TournamentSixteenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TournamentEightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(99, 99, 99)
+                    .addComponent(TournamentThirtytwoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(205, Short.MAX_VALUE)))
+        );
+
+        container.add(TournamentSelection, "card6");
+
+        GamePlayTournament.setBackground(new java.awt.Color(50, 30, 90));
+
+        TournamentTradePanel.setBackground(new java.awt.Color(90, 50, 130));
+
+        TournamentTradeLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        TournamentTradeLabel.setForeground(new java.awt.Color(230, 230, 230));
+        TournamentTradeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentTradeLabel.setText("T R A D E");
+        TournamentTradeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentTradeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentTradeLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentTradeLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentTradeLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentTradePanelLayout = new javax.swing.GroupLayout(TournamentTradePanel);
+        TournamentTradePanel.setLayout(TournamentTradePanelLayout);
+        TournamentTradePanelLayout.setHorizontalGroup(
+            TournamentTradePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentTradeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+        );
+        TournamentTradePanelLayout.setVerticalGroup(
+            TournamentTradePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentTradeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+        );
+
+        TournamentGuess.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentGuess.setPreferredSize(new java.awt.Dimension(430, 64));
+
+        TournamentGuessSeperator.setBackground(new java.awt.Color(50, 30, 90));
+        TournamentGuessSeperator.setForeground(new java.awt.Color(50, 30, 90));
+        TournamentGuessSeperator.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        TournamentGuessSeperator.setPreferredSize(new java.awt.Dimension(5, 0));
+
+        TournamentGuessLabel.setBackground(new java.awt.Color(50, 30, 90));
+        TournamentGuessLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        TournamentGuessLabel.setForeground(new java.awt.Color(50, 30, 90));
+        TournamentGuessLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentGuessLabel.setText("Enter Guess");
+        TournamentGuessLabel.setToolTipText("");
+
+        TournamentGuessInput.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentGuessInput.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        TournamentGuessInput.setForeground(new java.awt.Color(50, 30, 90));
+        TournamentGuessInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TournamentGuessInput.setBorder(null);
+        TournamentGuessInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TournamentGuessInputKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentGuessLayout = new javax.swing.GroupLayout(TournamentGuess);
+        TournamentGuess.setLayout(TournamentGuessLayout);
+        TournamentGuessLayout.setHorizontalGroup(
+            TournamentGuessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TournamentGuessLayout.createSequentialGroup()
+                .addComponent(TournamentGuessLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TournamentGuessSeperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TournamentGuessInput, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        TournamentGuessLayout.setVerticalGroup(
+            TournamentGuessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentGuessSeperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TournamentGuessLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TournamentGuessInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+        );
+
+        TournamentExitPanel.setBackground(new java.awt.Color(90, 50, 130));
+
+        TournamentExitLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        TournamentExitLabel.setForeground(new java.awt.Color(230, 230, 230));
+        TournamentExitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentExitLabel.setText("E X I T");
+        TournamentExitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentExitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentExitLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentExitLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentExitLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentExitPanelLayout = new javax.swing.GroupLayout(TournamentExitPanel);
+        TournamentExitPanel.setLayout(TournamentExitPanelLayout);
+        TournamentExitPanelLayout.setHorizontalGroup(
+            TournamentExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentExitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+        );
+        TournamentExitPanelLayout.setVerticalGroup(
+            TournamentExitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentExitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        TournamentGuessSubmitPanel.setBackground(new java.awt.Color(230, 230, 230));
+        TournamentGuessSubmitPanel.setPreferredSize(new java.awt.Dimension(1280, 100));
+
+        TournamentGuessSubmitLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        TournamentGuessSubmitLabel.setForeground(new java.awt.Color(90, 50, 130));
+        TournamentGuessSubmitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TournamentGuessSubmitLabel.setText("S U B M I T");
+        TournamentGuessSubmitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TournamentGuessSubmitLabel.setPreferredSize(new java.awt.Dimension(1280, 32));
+        TournamentGuessSubmitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TournamentGuessSubmitLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TournamentGuessSubmitLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TournamentGuessSubmitLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout TournamentGuessSubmitPanelLayout = new javax.swing.GroupLayout(TournamentGuessSubmitPanel);
+        TournamentGuessSubmitPanel.setLayout(TournamentGuessSubmitPanelLayout);
+        TournamentGuessSubmitPanelLayout.setHorizontalGroup(
+            TournamentGuessSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentGuessSubmitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+        );
+        TournamentGuessSubmitPanelLayout.setVerticalGroup(
+            TournamentGuessSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TournamentGuessSubmitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout GamePlayTournamentLayout = new javax.swing.GroupLayout(GamePlayTournament);
+        GamePlayTournament.setLayout(GamePlayTournamentLayout);
+        GamePlayTournamentLayout.setHorizontalGroup(
+            GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GamePlayTournamentLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(TournamentExitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 662, Short.MAX_VALUE)
+                .addComponent(TournamentTradePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+            .addGroup(GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GamePlayTournamentLayout.createSequentialGroup()
+                    .addGap(422, 422, 422)
+                    .addComponent(TournamentGuess, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(406, Short.MAX_VALUE)))
+            .addGroup(GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GamePlayTournamentLayout.createSequentialGroup()
+                    .addContainerGap(275, Short.MAX_VALUE)
+                    .addComponent(TournamentGuessSubmitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(266, 266, 266)))
+        );
+        GamePlayTournamentLayout.setVerticalGroup(
+            GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GamePlayTournamentLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TournamentExitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TournamentTradePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(579, Short.MAX_VALUE))
+            .addGroup(GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GamePlayTournamentLayout.createSequentialGroup()
+                    .addGap(306, 306, 306)
+                    .addComponent(TournamentGuess, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(359, Short.MAX_VALUE)))
+            .addGroup(GamePlayTournamentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GamePlayTournamentLayout.createSequentialGroup()
+                    .addGap(445, 445, 445)
+                    .addComponent(TournamentGuessSubmitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(184, Short.MAX_VALUE)))
+        );
+
+        container.add(GamePlayTournament, "card3");
 
         GameTopMenu.setBackground(new java.awt.Color(230, 230, 230));
         GameTopMenu.setPreferredSize(new java.awt.Dimension(1280, 50));
@@ -823,11 +1309,21 @@ public class GameMain extends javax.swing.JFrame {
     private void TournamenSelectiontLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamenSelectiontLabelMouseClicked
         // TODO add your handling code here:
         TournamenSelectionPanel.setBackground(TournamenSelectionPanel.getBackground().brighter());
-
-        container.removeAll();
-//        container.add(Tournament);
-        container.repaint();
-        container.revalidate();
+        try{
+                String msg;
+                con.sendMessage("tournament");
+                msg = con.receiveMessage();
+                if (msg.contains("ERROR")){
+                    throw new Exception(msg);
+                }
+                container.removeAll();
+                container.add(TournamentSelection);              
+                container.repaint();
+                container.revalidate();
+                MultiMsgLabel.setText(msg);
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(container,e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE); 
+        }
     }//GEN-LAST:event_TournamenSelectiontLabelMouseClicked
 
     private void TournamenSelectiontLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamenSelectiontLabelMouseEntered
@@ -1030,6 +1526,285 @@ public class GameMain extends javax.swing.JFrame {
         MultReadyLabel.setForeground(new Color(230,230,230));
     }//GEN-LAST:event_MultReadyLabelMouseExited
 
+    private void TournamentEightLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentEightLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentEightPanel.setBackground(TournamentEightPanel.getBackground().brighter());
+        try{
+                con.sendMessage("eight");
+                container.removeAll();
+                WaitingAreaReadyLabel.setVisible(false);
+                container.add(WaitingArea);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+        
+        //waiting untill all players are in the lobby
+        Thread waiting = new Thread(() -> {
+                try {
+               //keep alive check with server
+                        if (con.receiveMessage().equals("full")){
+                                WaitingAreaReadyLabel.setVisible(true);
+                                con.sendMessage("ok");          //to make all connections happen in the tournament
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+	});
+        waiting.start();
+    }//GEN-LAST:event_TournamentEightLabelMouseClicked
+
+    private void TournamentEightLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentEightLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentEightPanel.setBackground(TournamentEightPanel.getBackground().darker());
+    }//GEN-LAST:event_TournamentEightLabelMouseEntered
+
+    private void TournamentEightLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentEightLabelMouseExited
+        // TODO add your handling code here:
+        TournamentEightPanel.setBackground(TournamentEightPanel.getBackground().brighter());
+    }//GEN-LAST:event_TournamentEightLabelMouseExited
+
+    private void TournamentSixteenLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSixteenLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentSixteenPanel.setBackground(TournamentSixteenPanel.getBackground().brighter());
+        try{
+                con.sendMessage("sixteen");
+                container.removeAll();
+                WaitingAreaReadyLabel.setVisible(false);
+                container.add(WaitingArea);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+        
+        //waiting untill all players are in the lobby
+        Thread waiting = new Thread(() -> {
+                try {
+                        if (con.receiveMessage().equals("full")){
+                                WaitingAreaReadyLabel.setVisible(true);
+                                con.sendMessage("ok");          //to make all connections happen in the tournament
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+	});
+        waiting.start();
+    }//GEN-LAST:event_TournamentSixteenLabelMouseClicked
+
+    private void TournamentSixteenLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSixteenLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentSixteenPanel.setBackground(TournamentSixteenPanel.getBackground().darker());
+    }//GEN-LAST:event_TournamentSixteenLabelMouseEntered
+
+    private void TournamentSixteenLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSixteenLabelMouseExited
+        // TODO add your handling code here:
+        TournamentSixteenPanel.setBackground(TournamentSixteenPanel.getBackground().brighter());
+    }//GEN-LAST:event_TournamentSixteenLabelMouseExited
+
+    private void TournamentThirtytwoLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentThirtytwoLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentThirtytwoPanel.setBackground(TournamentThirtytwoPanel.getBackground().brighter());
+        try{
+                con.sendMessage("thirtytwo");
+                container.removeAll();
+                WaitingAreaReadyLabel.setVisible(false);
+                container.add(WaitingArea);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+        
+        //waiting untill all players are in the lobby
+        Thread waiting = new Thread(() -> {
+                try {
+                        if (con.receiveMessage().equals("full")){
+                                WaitingAreaReadyLabel.setVisible(true);
+                                con.sendMessage("ok");          //to make all connections happen in the tournament
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+	});
+        waiting.start();
+    }//GEN-LAST:event_TournamentThirtytwoLabelMouseClicked
+
+    private void TournamentThirtytwoLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentThirtytwoLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentThirtytwoPanel.setBackground(TournamentThirtytwoPanel.getBackground().darker());
+    }//GEN-LAST:event_TournamentThirtytwoLabelMouseEntered
+
+    private void TournamentThirtytwoLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentThirtytwoLabelMouseExited
+        // TODO add your handling code here:
+        TournamentThirtytwoPanel.setBackground(TournamentThirtytwoPanel.getBackground().brighter());
+    }//GEN-LAST:event_TournamentThirtytwoLabelMouseExited
+
+    private void TournamentSelectionExitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSelectionExitLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentSelectionExitPanel.setBackground(new Color(90,50,130));
+        try{
+                con.sendMessage("exit");
+                container.removeAll();
+                container.add(MainMenu);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+    }//GEN-LAST:event_TournamentSelectionExitLabelMouseClicked
+
+    private void TournamentSelectionExitLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSelectionExitLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentSelectionExitPanel.setBackground(new Color(110,80,160));
+    }//GEN-LAST:event_TournamentSelectionExitLabelMouseEntered
+
+    private void TournamentSelectionExitLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentSelectionExitLabelMouseExited
+        // TODO add your handling code here:
+        TournamentSelectionExitPanel.setBackground(new Color(90,50,130));
+    }//GEN-LAST:event_TournamentSelectionExitLabelMouseExited
+
+    private void WaitingAreaExitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaExitLabelMouseClicked
+        // TODO add your handling code here:
+        WaitingAreaExitPanel.setBackground(new Color(90,50,130));
+        try{
+                con.sendMessage("exit");
+                container.removeAll();
+                container.add(MainMenu);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+    }//GEN-LAST:event_WaitingAreaExitLabelMouseClicked
+
+    private void WaitingAreaExitLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaExitLabelMouseEntered
+        // TODO add your handling code here:
+        WaitingAreaExitPanel.setBackground(new Color(110,80,160));
+    }//GEN-LAST:event_WaitingAreaExitLabelMouseEntered
+
+    private void WaitingAreaExitLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaExitLabelMouseExited
+        // TODO add your handling code here:
+        WaitingAreaExitPanel.setBackground(new Color(90,50,130));
+    }//GEN-LAST:event_WaitingAreaExitLabelMouseExited
+
+    private void WaitingAreaReadyLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaReadyLabelMouseClicked
+        // TODO add your handling code here:
+        WaitingAreaReadyPanel.setBackground(new Color(90,50,130));
+        try{
+            String msg;
+            con.sendMessage("ready");
+            msg = con.receiveMessage();         //should receive "Winner is the ..."
+            if (msg.contains("left")){
+                container.removeAll();
+                container.add(MainMenu);
+                container.repaint();
+                container.revalidate();
+                return;
+            }
+            JOptionPane.showMessageDialog(GamePlay,msg,"INFO",JOptionPane.PLAIN_MESSAGE); 
+            user.goldCoins = user.getGold()-500;
+            GoldNumber.setText(Integer.toString(user.getGold()));
+            container.removeAll();
+            container.add(GamePlayTournament);
+            container.repaint();
+            container.revalidate();
+            TournamentGuessInput.setText("");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_WaitingAreaReadyLabelMouseClicked
+
+    private void WaitingAreaReadyLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaReadyLabelMouseEntered
+        // TODO add your handling code here:
+        WaitingAreaReadyPanel.setBackground(new Color(230,230,230));
+        WaitingAreaReadyLabel.setForeground(new Color(90,50,130));   
+    }//GEN-LAST:event_WaitingAreaReadyLabelMouseEntered
+
+    private void WaitingAreaReadyLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WaitingAreaReadyLabelMouseExited
+        // TODO add your handling code here:
+        WaitingAreaReadyPanel.setBackground(new Color(90,50,130));
+        WaitingAreaReadyLabel.setForeground(new Color(230,230,230));
+    }//GEN-LAST:event_WaitingAreaReadyLabelMouseExited
+
+    private void TournamentTradeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentTradeLabelMouseClicked
+        // TODO add your handling code here:
+        try{
+                String msg;
+                con.sendMessage("trade");
+                msg = con.receiveMessage();
+                if (msg.contains("ERROR")){
+                    JOptionPane.showMessageDialog(GamePlay,msg,"ERROR",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                user.goldCoins = user.getGold()+1;
+                user.silverCoins = user.getSilver()-10;
+                GoldNumber.setText(Integer.toString(user.getGold()));
+                SilverNumber.setText(Integer.toString(user.getSilver()));
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+    }//GEN-LAST:event_TournamentTradeLabelMouseClicked
+
+    private void TournamentTradeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentTradeLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentTradePanel.setBackground(new Color(110,80,160));
+    }//GEN-LAST:event_TournamentTradeLabelMouseEntered
+
+    private void TournamentTradeLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentTradeLabelMouseExited
+        // TODO add your handling code here:
+        TournamentTradePanel.setBackground(new Color(90,50,130));
+    }//GEN-LAST:event_TournamentTradeLabelMouseExited
+
+    private void TournamentGuessInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TournamentGuessInputKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+                TournamentsubmitGuess();
+            }
+    }//GEN-LAST:event_TournamentGuessInputKeyPressed
+
+    private void TournamentGuessSubmitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentGuessSubmitLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentsubmitGuess();
+    }//GEN-LAST:event_TournamentGuessSubmitLabelMouseClicked
+
+    private void TournamentGuessSubmitLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentGuessSubmitLabelMouseEntered
+        // TODO add your handling code here:
+        GuessSubmitPanel.setBackground(new Color(90,50,130));
+        GuessSubmitLabel.setForeground(new Color(230,230,230));
+    }//GEN-LAST:event_TournamentGuessSubmitLabelMouseEntered
+
+    private void TournamentGuessSubmitLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentGuessSubmitLabelMouseExited
+        // TODO add your handling code here:
+        GuessSubmitPanel.setBackground(new Color(230,230,230));
+        GuessSubmitLabel.setForeground(new Color(90,50,130));
+    }//GEN-LAST:event_TournamentGuessSubmitLabelMouseExited
+
+    private void TournamentExitLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentExitLabelMouseExited
+        // TODO add your handling code here:
+        TournamentExitPanel.setBackground(new Color(92,50,130));
+    }//GEN-LAST:event_TournamentExitLabelMouseExited
+
+    private void TournamentExitLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentExitLabelMouseEntered
+        // TODO add your handling code here:
+        TournamentExitPanel.setBackground(new Color(110,80,160));
+    }//GEN-LAST:event_TournamentExitLabelMouseEntered
+
+    private void TournamentExitLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TournamentExitLabelMouseClicked
+        // TODO add your handling code here:
+        TournamentExitPanel.setBackground(new Color(90,50,130));
+        try{
+                con.sendMessage("exit");
+                container.removeAll();
+                container.add(MainMenu);
+                container.repaint();
+                container.revalidate();
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+    }//GEN-LAST:event_TournamentExitLabelMouseClicked
+
     //handle submission
     private void submitGuess(){
         String msg;
@@ -1171,6 +1946,78 @@ public class GameMain extends javax.swing.JFrame {
         return;
     }
         
+     private void TournamentsubmitGuess(){
+        String msg;
+        String answer;
+        int gold;
+        int silver;
+        try{
+        	con.sendMessage(TournamentGuessInput.getText());
+                msg = con.receiveMessage();
+                if (msg.contains("ERROR")){
+                        JOptionPane.showMessageDialog(GamePlay,msg,"ERROR",JOptionPane.ERROR_MESSAGE); 
+                        return;
+                }
+                user.goldCoins = user.getGold()-5;      //paymenyt fee per guess
+                 if (msg.contains("Waiting")){
+                        JOptionPane.showMessageDialog(GamePlay,msg,"WAITING",JOptionPane.PLAIN_MESSAGE); 
+                        msg = con.receiveMessage();
+                 }
+                if (msg.contains("left")){
+                        JOptionPane.showMessageDialog(GamePlay,msg,"LEFT",JOptionPane.PLAIN_MESSAGE); 
+                        msg = con.receiveMessage();
+                }
+                if (msg.contains("SUCCESS")){
+                        JOptionPane.showMessageDialog(GamePlay,msg,"SUCCESS",JOptionPane.PLAIN_MESSAGE); 
+                        container.removeAll();
+                        WaitingAreaReadyLabel.setVisible(false);
+                        WaitingAreaExitLabel.setVisible(false);
+                        container.add(WaitingArea);
+                        container.repaint();
+                        container.revalidate();
+                        Thread waiting = new Thread(() -> {
+                            try {
+                                    if (con.receiveMessage().equals("full")){
+                                            WaitingAreaReadyLabel.setVisible(true);
+                                            con.sendMessage("ok");          //to make all connections happen in the tournament
+                                    }
+                            } catch (Exception e) {
+                                    e.printStackTrace();
+                            }
+                        });
+                        waiting.start();
+                        return;
+                }
+                if (msg.contains("FAILED")){
+                        JOptionPane.showMessageDialog(GamePlay,msg,"FAILED",JOptionPane.WARNING_MESSAGE); 
+                        container.removeAll();
+                        container.add(MainMenu);
+                        container.repaint();
+                        container.revalidate();
+                        return;
+                }
+                if (msg.contains("CONGRATS")){
+                        JOptionPane.showMessageDialog(GamePlay,msg.split(" ")[0],"SUCCESS",JOptionPane.PLAIN_MESSAGE); 
+                        user.goldCoins = user.getGold()+Integer.parseInt(msg.split(" ")[1]);
+                        GoldNumber.setText(Integer.toString(user.getGold()));
+                        container.removeAll();
+                        container.add(MainMenu);
+                        container.repaint();
+                        container.revalidate();
+                }
+                gold = Integer.parseInt(msg.split(" ")[0]);
+                silver = Integer.parseInt(msg.split(" ")[1]);
+                user.goldCoins = user.getGold()+gold;
+                user.silverCoins = user.getSilver()+silver;
+                GoldNumber.setText(Integer.toString(user.getGold()));
+                SilverNumber.setText(Integer.toString(user.getSilver()));
+                answer = "You got "+gold+" gold coins and "+silver+" silver coins.";
+                JOptionPane.showMessageDialog(GamePlay,answer,"INFO",JOptionPane.INFORMATION_MESSAGE);                
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return;
+    }
     /**
      * @param args the command line arguments
      */
@@ -1210,6 +2057,7 @@ public class GameMain extends javax.swing.JFrame {
     private javax.swing.JLabel ExitLabel;
     private javax.swing.JPanel ExitPanel;
     private javax.swing.JPanel GamePlay;
+    private javax.swing.JPanel GamePlayTournament;
     private javax.swing.JPanel GameTopMenu;
     private javax.swing.JLabel GoldLabel;
     private javax.swing.JLabel GoldNumber;
@@ -1243,11 +2091,37 @@ public class GameMain extends javax.swing.JFrame {
     private javax.swing.JPanel SingleplayerSelectionPanel;
     private javax.swing.JPanel TournamenSelectionPanel;
     private javax.swing.JLabel TournamenSelectiontLabel;
+    private javax.swing.JLabel TournamentEightLabel;
+    private javax.swing.JPanel TournamentEightPanel;
+    private javax.swing.JLabel TournamentExitLabel;
+    private javax.swing.JPanel TournamentExitPanel;
+    private javax.swing.JPanel TournamentGuess;
+    private javax.swing.JTextField TournamentGuessInput;
+    private javax.swing.JLabel TournamentGuessLabel;
+    private javax.swing.JSeparator TournamentGuessSeperator;
+    private javax.swing.JLabel TournamentGuessSubmitLabel;
+    private javax.swing.JPanel TournamentGuessSubmitPanel;
+    private javax.swing.JPanel TournamentSelection;
+    private javax.swing.JLabel TournamentSelectionExitLabel;
+    private javax.swing.JPanel TournamentSelectionExitPanel;
+    private javax.swing.JLabel TournamentSixteenLabel;
+    private javax.swing.JPanel TournamentSixteenPanel;
+    private javax.swing.JLabel TournamentThirtytwoLabel;
+    private javax.swing.JPanel TournamentThirtytwoPanel;
+    private javax.swing.JLabel TournamentTradeLabel;
+    private javax.swing.JPanel TournamentTradePanel;
     private javax.swing.JLabel TradeLabel;
     private javax.swing.JLabel TradeLabel1;
     private javax.swing.JPanel TradePanel;
     private javax.swing.JPanel TradePanel1;
     private javax.swing.JLabel UsernameLabel;
+    private javax.swing.JPanel WaitingArea;
+    private javax.swing.JLabel WaitingAreaExitLabel;
+    private javax.swing.JPanel WaitingAreaExitPanel;
+    private javax.swing.JLabel WaitingAreaMsgLabel;
+    private javax.swing.JPanel WaitingAreaMsgPanel;
+    private javax.swing.JLabel WaitingAreaReadyLabel;
+    private javax.swing.JPanel WaitingAreaReadyPanel;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel container;
     // End of variables declaration//GEN-END:variables

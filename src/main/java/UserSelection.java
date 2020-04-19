@@ -856,8 +856,8 @@ public class UserSelection extends javax.swing.JFrame {
         
         //Initialize connection
         try {
-                var socket = new Socket("192.168.1.104", 12345);
-//	        var socket = new Socket(args[0], Integer.parseInt(args[1]));
+//                var socket = new Socket("192.168.1.104", 12345);
+	        var socket = new Socket(args[0], Integer.parseInt(args[1]));
                 con = new ServerConnection(socket);
         }catch (Exception e) {
 //        	e.printStackTrace();
