@@ -25,7 +25,7 @@ public class Server {
 			//establish connection with the database, we pass username and password
 			//here demo is database name, root is username and "" password  
 			Connection con=DriverManager.getConnection(  
-			"jdbc:mysql://db4free.net:3306/eece350project","eece350","livelove350"); 
+			"jdbc:mysql://__URL__:__port__/___dbName__","__usrName__","__pass___"); //replace fields by corresponding values
 
 			
 			//the object of statement is responsible to execute queries
