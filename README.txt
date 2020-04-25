@@ -3,8 +3,6 @@ PROJECT TITLE: Gold-and-Silver game
 PURPOSE OF PROJECT: 	Apply networking knowledge to create a multi threaded server 
 			to be able to play the Gold-and-Silver game
 
-VERSION/DATE: 1.0.0 (10/04/2020)
-
 DESCRIPTION: 	Game like mastermind. The player has to guess a secret number (4 distincts digits) with 
 		as few guesses as possible. Each guess costs 5 gold coins. If the player guesses the correct 
 		number in the wrong position, he gets 1 silver coin. If the player guesses the correct number 
@@ -14,11 +12,6 @@ DESCRIPTION: 	Game like mastermind. The player has to guess a secret number (4 d
 		coins to enter the game, and the winner (guessed the number with fewer guests) takes 1000 gold 
 		coins. The tournament competition is held with 8, 16 or 32 players. Also, each player pays 500 
 		gold coins to enter the tournament, and the winner takes all.
-		
-AUTHORS:	ARDO Nour
-		BAZAZO Dana
-		KHALED Paul Karim
-		ZIADEH Kevin
 
 HOW TO START THIS PROJECT:
 		Create a MySQL database and change its parameters to connect to it in the Server class (connect function).
